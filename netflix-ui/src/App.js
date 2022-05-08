@@ -1,19 +1,10 @@
-
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Movies from "./components/Movies";
-
-const URL = "https://api.themoviedb.org/3";
-const API_KEY = "780f20853bb18d77da6b6af9f044cc5c";
-
-const endpoints = {
-  originals: "/discover/tv",
-  trending: "/trending/all/week",
-  now_playing: "/movie/now_playing",
-  popular: "/movie/popular",
-  top_rated: "/movie/top_rated",
-  upcoming: "/movie/upcoming",
-};
+import Banner from "./components/Banner";
+import Header from './components/Header';
+import {URL, API_KEY} from "./constants/Constants";
+import {endpoints} from "./endpoints/Endpoints";
 
 function App() {
 
@@ -33,14 +24,90 @@ function App() {
         },
       })
       .then((res) => setOriginals(res.data.results));
-  
-    // Get other categories with the same pattern here
-  
+
+    // Load Trending
+    axios
+    .get(`${URL}${endpoints.trending}`, {
+      params: {
+        api_key: API_KEY,
+      },
+    })
+    .then((res) => setTrending(res.data.results));
+
+    // Load Now Playing
+    axios
+    .get(`${URL}${endpoints.nowPlaying}`, {
+      params: {
+        api_key: API_KEY,
+      },
+    })
+    .then((res) => setNowPlaying(res.data.results));
+
+    // Load Popular
+    axios
+    .get(`${URL}${endpoints.popular}`, {
+      params: {
+        api_key: API_KEY,
+      },
+    })
+    .then((res) => setPopular(res.data.results));
+
+    // Load Top Rated
+    axios
+    .get(`${URL}${endpoints.topRated}`, {
+      params: {
+        api_key: API_KEY,
+      },
+    })
+    .then((res) => setTopRated(res.data.results));
+
+    // Load Set Upcoming
+    axios
+    .get(`${URL}${endpoints.upcoming}`, {
+      params: {
+        api_key: API_KEY,
+      },
+    })
+    .then((res) => setUpcoming(res.data.results));
+
   }, []);
+
+  const movieObj = {
+    "originals": {
+      "title": "Netflix Originals",
+      "data": originals
+    },
+    "trending": {
+      "title": "Trending",
+      "data": trending,
+    },
+    "nowPlaying": {
+      "title": "Now Playing",
+      "data": nowPlaying,
+
+    },
+    "popular": {
+      "title": "Popular",
+      "data": popular,
+
+    },
+    "topRated": {
+      "title": "Top Rated",
+      "data": topRated,
+    },
+    "upcoming": {
+      "title": "Upcoming",
+      "data": upcoming
+    }
+  }
+
+  const randomOriginals = movieObj.originals.data[Math.floor(Math.random() * movieObj.originals.data.length)]
 
   return (
     <>
-      <Movies title="Netflix originals" movies={originals}/>
+    <Header />
+    <Banner movie={randomOriginals} />
+    <Movies movies={movieObj}/>
     </>
   );
 }
