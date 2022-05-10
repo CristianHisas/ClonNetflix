@@ -2,7 +2,7 @@ import {
   MoviesContainer, 
   MoviesTitle, 
   MoviesRow, 
-  MoviesPoster } from "./Movies.styles";
+  MoviesPoster } from "./styles/Movies.styles";
 
 function Movies({ movies }) {
   return (

@@ -15,7 +15,7 @@ function App() {
   const [topRated, setTopRated] = useState([]);
   const [upcoming, setUpcoming] = useState([]);  
   
-  useEffect(() => {
+  useEffect( () => {
     // Load Originals
     axios
       .get(`${URL}${endpoints.originals}`, {

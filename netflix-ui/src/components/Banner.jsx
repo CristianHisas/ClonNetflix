@@ -5,7 +5,7 @@ import {
   BannerContainer,
   BannerDescription,
   BannerTitle,
-} from "./Banner.styles";
+} from "./styles/Banner.styles";
 
 function Banner({ movie }) {
   return (
