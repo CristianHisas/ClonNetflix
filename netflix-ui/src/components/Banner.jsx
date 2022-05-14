@@ -1,5 +1,5 @@
-
 import React from "react";
+import { useGetMovies } from "../hooks/useGetMovies";
 import {
   BannerButton,
   BannerContainer,
@@ -7,13 +7,28 @@ import {
   BannerTitle,
 } from "./styles/Banner.styles";
 
-function Banner({ movie }) {
+function Banner({ endpoint }) {
+
+  // hacer esta llamada cada 15 segundos para mostrar una transicion de originals
+  const [random, loading, error] = useGetMovies(endpoint);
+
+  const randomMovie = random[Math.floor(Math.random() * random.length)]
+
   return (
-    <BannerContainer background={movie?.backdrop_path}>
-      <BannerTitle>{movie?.name}</BannerTitle>
-      <BannerDescription>{movie?.overview}</BannerDescription>
-      <BannerButton>Play</BannerButton>
-      <BannerButton>My List</BannerButton>
+    <BannerContainer background={loading ? randomMovie.backdrop_path : ''}>
+      <BannerTitle>{loading ? randomMovie.name : 'Ups! Something went wrong :('}</BannerTitle>
+      <BannerDescription>{loading ? randomMovie.overview : error}</BannerDescription>
+      {
+        loading ? (
+          <>
+          <BannerButton>Play</BannerButton>
+          <BannerButton>My List</BannerButton>
+          </>
+        ) : 
+        (
+          <></>
+        )
+      }
     </BannerContainer>
   );
 }

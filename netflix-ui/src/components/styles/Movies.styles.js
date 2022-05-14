@@ -40,3 +40,17 @@ export const MoviesPoster = styled.img`
     transform: scale(1.09);
   }
 `;
+
+// Error poster
+export const MoviesErrorPoster = styled.div`
+  ${tw`
+    m-5
+    w-40
+  `}
+
+  // Scale the movie img when the user hovers on it.
+  transition: all 0.2s;
+  &:hover {
+    transform: scale(1.09);
+  }
+`;

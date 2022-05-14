@@ -1,99 +1,35 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import {URL, API_KEY} from "./constants/Constants";
-import {endpoints} from "./endpoints/Endpoints";
+import {URL, API_KEY} from "../constants/Constants";
 
-export const useGetMovies = () => {
-  const [originals, setOriginals] = useState([]);
-  const [trending, setTrending] = useState([]);
-  const [nowPlaying, setNowPlaying] = useState([]);
-  const [popular, setPopular] = useState([]);
-  const [topRated, setTopRated] = useState([]);
-  const [upcoming, setUpcoming] = useState([]);  
-  
+export const useGetMovies = (endpoint) => {
+  const [movies, setMovies] = useState({
+    data: [],
+    loading: false,
+    error: null
+  });
+
   useEffect(() =>  {
-    // Load Originals
-    axios
-      .get(`${URL}${endpoints.discover}`, {
-        params: {
-          api_key: API_KEY,
-        },
-      })
-      .then((res) => setOriginals(res.data.results));
-
-    // Load Trending
-    axios
-    .get(`${URL}${endpoints.trending}`, {
-      params: {
-        api_key: API_KEY,
-      },
-    })
-    .then((res) => setTrending(res.data.results));
-
-    // Load Now Playing
-    axios
-    .get(`${URL}${endpoints.nowPlaying}`, {
-      params: {
-        api_key: API_KEY,
-      },
-    })
-    .then((res) => setNowPlaying(res.data.results));
-
-    // Load Popular
-    axios
-    .get(`${URL}${endpoints.popular}`, {
-      params: {
-        api_key: API_KEY,
-      },
-    })
-    .then((res) => setPopular(res.data.results));
-
-    // Load Top Rated
-    axios
-    .get(`${URL}${endpoints.topRated}`, {
-      params: {
-        api_key: API_KEY,
-      },
-    })
-    .then((res) => setTopRated(res.data.results));
-
-    // Load Upcoming
-    axios
-    .get(`${URL}${endpoints.upcoming}`, {
-      params: {
-        api_key: API_KEY,
-      },
-    })
-    .then((res) => setUpcoming(res.data.results));
-
+    getMovies();
   }, []);
 
-  const movieObj = {
-    "originals": {
-      "title": "Netflix Originals",
-      "data": originals
-    },
-    "trending": {
-      "title": "Trending",
-      "data": trending,
-    },
-    "nowPlaying": {
-      "title": "Now Playing",
-      "data": nowPlaying,
-
-    },
-    "popular": {
-      "title": "Popular",
-      "data": popular,
-
-    },
-    "topRated": {
-      "title": "Top Rated",
-      "data": topRated,
-    },
-    "upcoming": {
-      "title": "Upcoming",
-      "data": upcoming
+  const getMovies = async () => {
+    try {
+      await axios
+              .get(`${URL}${endpoint}`, {params: { api_key: API_KEY }})
+              .then((res) => setMovies({
+                data: res.data.results,
+                loading: true,
+                error: null
+              }));
+    } catch (e) {
+      setMovies({
+        data: [],
+        loading: false,
+        error: e
+      })
     }
   }
+
+  return [movies.data, movies.loading, movies.error];
 }
