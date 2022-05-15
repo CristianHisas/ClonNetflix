@@ -3,7 +3,7 @@ import {
   MoviesTitle, 
   MoviesRow, 
   MoviesPoster,
-  MoviesErrorPoster} from "./styles/Movies.styles";
+  ErrorPoster} from "./styles/Movies.styles";
 import { useGetMovies } from "../hooks/useGetMovies";
 
 // Swiper ---------------------
@@ -12,6 +12,9 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode } from "swiper";
 // ----------------------------
+
+// Spinner
+import { RotatingLines } from 'react-loader-spinner';
 
 function Movies({endpoints}) {
 
@@ -63,259 +66,294 @@ function Movies({endpoints}) {
 
   return (
     <MoviesContainer>
-      <MoviesTitle>{movies.originals.title}</MoviesTitle>  
+
+      <MoviesTitle>{movies.originals.title}</MoviesTitle>
       <MoviesRow>
-        <Swiper
-          slidesPerView={2}
-          freeMode={true}
-          modules={[FreeMode]}
-          breakpoints={{
-            1200: {
-              slidesPerView: 7
-            },
-            992: {
-              slidesPerView: 5
-            },
-            768: {
-              slidesPerView: 4
-            },
-            576: {
-              slidesPerView: 3
-            }
-          }}          
-        >
-          {movies.originals.loading ? (
-            movies.originals.data.map((originals) => (
-              <SwiperSlide> 
-                <MoviesPoster
-                  key={originals.id}
-                  src={"https://image.tmdb.org/t/p/w300" + originals.poster_path}
-                  alt={originals.name}
-                />
-              </SwiperSlide>
-            ))
+        {
+          movies.originals.loading ? (
+            <Swiper
+              slidesPerView={2}
+              freeMode={true}
+              modules={[FreeMode]}
+              breakpoints={{
+                1200: {
+                  slidesPerView: 7
+                },
+                992: {
+                  slidesPerView: 5
+                },
+                768: {
+                  slidesPerView: 4
+                },
+                576: {
+                  slidesPerView: 3
+                }
+              }}          
+            >
+              {movies.originals.data.map((originals) => (
+                  <SwiperSlide> 
+                    <MoviesPoster
+                      key={originals.id}
+                      src={"https://image.tmdb.org/t/p/w300" + originals.poster_path}
+                      alt={originals.name}
+                    />
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          ) : 
+          ( 
+            movies.originals.error == null ? (
+              <RotatingLines width="60"/>
             ) : (
-              <MoviesErrorPoster>
+              <ErrorPoster>
                 Ups! Something went wrong :( 
                 <br />
                 {movies.originals.error}
-              </MoviesErrorPoster>
-            )
-          }
-        </Swiper>
-      </MoviesRow> 
+              </ErrorPoster>     
+            )      
+          )
+        }
+      </MoviesRow>
 
       <MoviesTitle>{movies.trending.title}</MoviesTitle>
       <MoviesRow>
-        <Swiper
-          slidesPerView={2}
-          freeMode={true}
-          modules={[FreeMode]}
-          breakpoints={{
-            1200: {
-              slidesPerView: 7
-            },
-            992: {
-              slidesPerView: 5
-            },
-            768: {
-              slidesPerView: 4
-            },
-            576: {
-              slidesPerView: 3
-            }
-          }}
-        >
-          {movies.trending.loading ? (
-            movies.trending.data.map((trending) => (
-              <SwiperSlide>
-                <MoviesPoster
-                  key={trending.id}
-                  src={"https://image.tmdb.org/t/p/w300" + trending.poster_path}
-                  alt={trending.name}
-                />
-              </SwiperSlide>
-            ))
+        {
+          movies.trending.loading ? (
+            <Swiper
+              slidesPerView={2}
+              freeMode={true}
+              modules={[FreeMode]}
+              breakpoints={{
+                1200: {
+                  slidesPerView: 7
+                },
+                992: {
+                  slidesPerView: 5
+                },
+                768: {
+                  slidesPerView: 4
+                },
+                576: {
+                  slidesPerView: 3
+                }
+              }}          
+            >
+              {movies.trending.data.map((trending) => (
+                  <SwiperSlide> 
+                    <MoviesPoster
+                      key={trending.id}
+                      src={"https://image.tmdb.org/t/p/w300" + trending.poster_path}
+                      alt={trending.name}
+                    />
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          ) : 
+          ( 
+            movies.trending.error == null ? (
+              <RotatingLines width="60"/>
             ) : (
-              <MoviesErrorPoster>
+              <ErrorPoster>
                 Ups! Something went wrong :( 
                 <br />
                 {movies.trending.error}
-              </MoviesErrorPoster>
-            )
-          }
-        </Swiper>
-      </MoviesRow> 
+              </ErrorPoster>     
+            )      
+          )
+        }
+      </MoviesRow>      
 
       <MoviesTitle>{movies.nowPlaying.title}</MoviesTitle>
       <MoviesRow>
-        <Swiper
-          slidesPerView={2}
-          freeMode={true}
-          modules={[FreeMode]}
-          breakpoints={{
-            1200: {
-              slidesPerView: 7
-            },
-            992: {
-              slidesPerView: 5
-            },
-            768: {
-              slidesPerView: 4
-            },
-            576: {
-              slidesPerView: 3
-            }
-          }}
-        >
-          {movies.nowPlaying.loading ? (
-            movies.nowPlaying.data.map((nowPlaying) => (
-              <SwiperSlide>
-                <MoviesPoster
-                  key={nowPlaying.id}
-                  src={"https://image.tmdb.org/t/p/w300" + nowPlaying.poster_path}
-                  alt={nowPlaying.name}
-                />
-              </SwiperSlide>
-
-            ))
+        {
+          movies.nowPlaying.loading ? (
+            <Swiper
+              slidesPerView={2}
+              freeMode={true}
+              modules={[FreeMode]}
+              breakpoints={{
+                1200: {
+                  slidesPerView: 7
+                },
+                992: {
+                  slidesPerView: 5
+                },
+                768: {
+                  slidesPerView: 4
+                },
+                576: {
+                  slidesPerView: 3
+                }
+              }}          
+            >
+              {movies.nowPlaying.data.map((nowPlaying) => (
+                  <SwiperSlide> 
+                    <MoviesPoster
+                      key={nowPlaying.id}
+                      src={"https://image.tmdb.org/t/p/w300" + nowPlaying.poster_path}
+                      alt={nowPlaying.name}
+                    />
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          ) : 
+          ( 
+            movies.nowPlaying.error == null ? (
+              <RotatingLines width="60"/>
             ) : (
-              <MoviesErrorPoster>
+              <ErrorPoster>
                 Ups! Something went wrong :( 
                 <br />
                 {movies.nowPlaying.error}
-              </MoviesErrorPoster>
-            )
-          }
-        </Swiper>
-      </MoviesRow> 
+              </ErrorPoster>     
+            )      
+          )
+        }
+      </MoviesRow>
 
       <MoviesTitle>{movies.popular.title}</MoviesTitle>
       <MoviesRow>
-        <Swiper
-          slidesPerView={2}
-          freeMode={true}
-          modules={[FreeMode]}
-          breakpoints={{
-            1200: {
-              slidesPerView: 7
-            },
-            992: {
-              slidesPerView: 5
-            },
-            768: {
-              slidesPerView: 4
-            },
-            576: {
-              slidesPerView: 3
-            }
-          }}
-        >
-          {movies.popular.loading ? (
-            movies.popular.data.map((popular) => (
-              <SwiperSlide>
-                <MoviesPoster
-                  key={popular.id}
-                  src={"https://image.tmdb.org/t/p/w300" + popular.poster_path}
-                  alt={popular.name}
-                />
-              </SwiperSlide>
-            ))
+        {
+          movies.popular.loading ? (
+            <Swiper
+              slidesPerView={2}
+              freeMode={true}
+              modules={[FreeMode]}
+              breakpoints={{
+                1200: {
+                  slidesPerView: 7
+                },
+                992: {
+                  slidesPerView: 5
+                },
+                768: {
+                  slidesPerView: 4
+                },
+                576: {
+                  slidesPerView: 3
+                }
+              }}          
+            >
+              {movies.popular.data.map((popular) => (
+                  <SwiperSlide> 
+                    <MoviesPoster
+                      key={popular.id}
+                      src={"https://image.tmdb.org/t/p/w300" + popular.poster_path}
+                      alt={popular.name}
+                    />
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          ) : 
+          ( 
+            movies.popular.error == null ? (
+              <RotatingLines width="60"/>
             ) : (
-              <MoviesErrorPoster>
+              <ErrorPoster>
                 Ups! Something went wrong :( 
                 <br />
                 {movies.popular.error}
-              </MoviesErrorPoster>
-            )
-          }
-        </Swiper>
-      </MoviesRow> 
+              </ErrorPoster>     
+            )      
+          )
+        }
+      </MoviesRow>
 
       <MoviesTitle>{movies.topRated.title}</MoviesTitle>
       <MoviesRow>
-        <Swiper
-          slidesPerView={2}
-          freeMode={true}
-          modules={[FreeMode]}
-          breakpoints={{
-            1200: {
-              slidesPerView: 7
-            },
-            992: {
-              slidesPerView: 5
-            },
-            768: {
-              slidesPerView: 4
-            },
-            576: {
-              slidesPerView: 3
-            }
-          }}
-        >
-          {movies.topRated.loading ? (
-            movies.topRated.data.map((topRated) => (
-              <SwiperSlide>
-                <MoviesPoster
-                  key={topRated.id}
-                  src={"https://image.tmdb.org/t/p/w300" + topRated.poster_path}
-                  alt={topRated.name}
-                />
-              </SwiperSlide>
-
-            ))
+        {
+          movies.topRated.loading ? (
+            <Swiper
+              slidesPerView={2}
+              freeMode={true}
+              modules={[FreeMode]}
+              breakpoints={{
+                1200: {
+                  slidesPerView: 7
+                },
+                992: {
+                  slidesPerView: 5
+                },
+                768: {
+                  slidesPerView: 4
+                },
+                576: {
+                  slidesPerView: 3
+                }
+              }}          
+            >
+              {movies.topRated.data.map((topRated) => (
+                  <SwiperSlide> 
+                    <MoviesPoster
+                      key={topRated.id}
+                      src={"https://image.tmdb.org/t/p/w300" + topRated.poster_path}
+                      alt={topRated.name}
+                    />
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          ) : 
+          ( 
+            movies.topRated.error == null ? (
+              <RotatingLines width="60"/>
             ) : (
-              <MoviesErrorPoster>
+              <ErrorPoster>
                 Ups! Something went wrong :( 
                 <br />
                 {movies.topRated.error}
-              </MoviesErrorPoster>
-            )
-          }
-        </Swiper>
-      </MoviesRow> 
+              </ErrorPoster>     
+            )      
+          )
+        }
+      </MoviesRow>
 
       <MoviesTitle>{movies.upcoming.title}</MoviesTitle>
       <MoviesRow>
-        <Swiper
-          slidesPerView={2}
-          freeMode={true}
-          modules={[FreeMode]}   
-          breakpoints={{
-            1200: {
-              slidesPerView: 7
-            },
-            992: {
-              slidesPerView: 5
-            },
-            768: {
-              slidesPerView: 4
-            },
-            576: {
-              slidesPerView: 3
-            }
-          }}     
-        >
-          {movies.upcoming.loading ? (
-            movies.upcoming.data.map((upcoming) => (
-              <SwiperSlide>
-                <MoviesPoster
-                  key={upcoming.id}
-                  src={"https://image.tmdb.org/t/p/w300" + upcoming.poster_path}
-                  alt={upcoming.name}
-                />
-              </SwiperSlide>
-            ))
+        {
+          movies.upcoming.loading ? (
+            <Swiper
+              slidesPerView={2}
+              freeMode={true}
+              modules={[FreeMode]}
+              breakpoints={{
+                1200: {
+                  slidesPerView: 7
+                },
+                992: {
+                  slidesPerView: 5
+                },
+                768: {
+                  slidesPerView: 4
+                },
+                576: {
+                  slidesPerView: 3
+                }
+              }}          
+            >
+              {movies.upcoming.data.map((upcoming) => (
+                  <SwiperSlide> 
+                    <MoviesPoster
+                      key={upcoming.id}
+                      src={"https://image.tmdb.org/t/p/w300" + upcoming.poster_path}
+                      alt={upcoming.name}
+                    />
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          ) : 
+          ( 
+            movies.upcoming.error == null ? (
+              <RotatingLines width="60"/>
             ) : (
-              <MoviesErrorPoster>
+              <ErrorPoster>
                 Ups! Something went wrong :( 
                 <br />
                 {movies.upcoming.error}
-              </MoviesErrorPoster>
-            )
-          }         
-        </Swiper>
-      </MoviesRow>     
+              </ErrorPoster>     
+            )      
+          )
+        }
+      </MoviesRow>
     </MoviesContainer>
   );
 }

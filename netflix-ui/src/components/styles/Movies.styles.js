@@ -41,8 +41,7 @@ export const MoviesPoster = styled.img`
   }
 `;
 
-// Error poster
-export const MoviesErrorPoster = styled.div`
+export const ErrorPoster = styled.div`
   ${tw`
     m-5
     w-40
