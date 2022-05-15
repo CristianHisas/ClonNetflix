@@ -25,7 +25,7 @@ export const MoviesRow = styled.div`
 
   &::-webkit-scrollbar {
     display: none;
-  }
+  } 
 `;
 
 export const MoviesPoster = styled.img`
