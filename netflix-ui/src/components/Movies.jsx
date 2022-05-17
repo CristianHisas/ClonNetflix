@@ -7,10 +7,9 @@ import {
 import { useGetMovies } from "../hooks/useGetMovies";
 
 // Swiper ---------------------
+import { SwiperProps } from "./settings/Movies.settings";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/free-mode";
-import { FreeMode } from "swiper";
 // ----------------------------
 
 // Spinner
@@ -72,23 +71,7 @@ function Movies({endpoints}) {
         {
           movies.originals.loading ? (
             <Swiper
-              slidesPerView={2}
-              freeMode={true}
-              modules={[FreeMode]}
-              breakpoints={{
-                1200: {
-                  slidesPerView: 7
-                },
-                992: {
-                  slidesPerView: 5
-                },
-                768: {
-                  slidesPerView: 4
-                },
-                576: {
-                  slidesPerView: 3
-                }
-              }}          
+              {...SwiperProps} 
             >
               {movies.originals.data.map((originals) => (
                   <SwiperSlide> 
@@ -120,23 +103,7 @@ function Movies({endpoints}) {
         {
           movies.trending.loading ? (
             <Swiper
-              slidesPerView={2}
-              freeMode={true}
-              modules={[FreeMode]}
-              breakpoints={{
-                1200: {
-                  slidesPerView: 7
-                },
-                992: {
-                  slidesPerView: 5
-                },
-                768: {
-                  slidesPerView: 4
-                },
-                576: {
-                  slidesPerView: 3
-                }
-              }}          
+              {...SwiperProps}      
             >
               {movies.trending.data.map((trending) => (
                   <SwiperSlide> 
@@ -168,23 +135,7 @@ function Movies({endpoints}) {
         {
           movies.nowPlaying.loading ? (
             <Swiper
-              slidesPerView={2}
-              freeMode={true}
-              modules={[FreeMode]}
-              breakpoints={{
-                1200: {
-                  slidesPerView: 7
-                },
-                992: {
-                  slidesPerView: 5
-                },
-                768: {
-                  slidesPerView: 4
-                },
-                576: {
-                  slidesPerView: 3
-                }
-              }}          
+              {...SwiperProps}          
             >
               {movies.nowPlaying.data.map((nowPlaying) => (
                   <SwiperSlide> 
@@ -216,23 +167,7 @@ function Movies({endpoints}) {
         {
           movies.popular.loading ? (
             <Swiper
-              slidesPerView={2}
-              freeMode={true}
-              modules={[FreeMode]}
-              breakpoints={{
-                1200: {
-                  slidesPerView: 7
-                },
-                992: {
-                  slidesPerView: 5
-                },
-                768: {
-                  slidesPerView: 4
-                },
-                576: {
-                  slidesPerView: 3
-                }
-              }}          
+              {...SwiperProps}         
             >
               {movies.popular.data.map((popular) => (
                   <SwiperSlide> 
@@ -264,23 +199,7 @@ function Movies({endpoints}) {
         {
           movies.topRated.loading ? (
             <Swiper
-              slidesPerView={2}
-              freeMode={true}
-              modules={[FreeMode]}
-              breakpoints={{
-                1200: {
-                  slidesPerView: 7
-                },
-                992: {
-                  slidesPerView: 5
-                },
-                768: {
-                  slidesPerView: 4
-                },
-                576: {
-                  slidesPerView: 3
-                }
-              }}          
+              {...SwiperProps}         
             >
               {movies.topRated.data.map((topRated) => (
                   <SwiperSlide> 
@@ -312,23 +231,7 @@ function Movies({endpoints}) {
         {
           movies.upcoming.loading ? (
             <Swiper
-              slidesPerView={2}
-              freeMode={true}
-              modules={[FreeMode]}
-              breakpoints={{
-                1200: {
-                  slidesPerView: 7
-                },
-                992: {
-                  slidesPerView: 5
-                },
-                768: {
-                  slidesPerView: 4
-                },
-                576: {
-                  slidesPerView: 3
-                }
-              }}          
+              {...SwiperProps}          
             >
               {movies.upcoming.data.map((upcoming) => (
                   <SwiperSlide> 
